@@ -25,4 +25,3 @@ class TextNode:
         self_string = self_string + str(self.text_type.value) + ", "
         self_string = self_string + str(self.url) + ")"
         return self_string
-    

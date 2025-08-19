@@ -1,7 +1,8 @@
 import unittest
 from htmlnode import HTMLNode
 from textnode import TextNode, TextType
-from main import *
+from inline_markdown import *
+from block_markdown import *
 
 class TestSplitNodes(unittest.TestCase):
     def test_no_delimiter(self):
