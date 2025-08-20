@@ -8,7 +8,7 @@ import re, os, shutil
 
 def main():
     static_to_public()
-    generate_page("./content/index.md", "./template.html", "./public/index.html")
+    generate_page_recursive("./content", "./template.html", "./public")
 
 
 def static_to_public():
@@ -65,5 +65,25 @@ def generate_page(from_path, template_path, dest_path):
     with open(dest_path, "w") as file:
         file.write(template)
     
+def generate_page_recursive(content_dir_path, template_path, dest_dir_path):
+    print(f"Building list of files from {content_dir_path}")
+    files = os.listdir(content_dir_path)
+    print(f"File list built, cycling through now.")
+    for f in files:
+        print(f"Working on file {f}")
+        filepath = os.path.join(content_dir_path, f)
+        destpath = os.path.join(dest_dir_path, f)
+        print(f"Source filepath is {filepath}, destination is {destpath}")
+        if os.path.isfile(filepath):
+            print(f"{f} is a file, so we're making a page for it.")
+            destpath = destpath.replace(".md", ".html")
+            print(f"Fixed {destpath} so it's .html instead of .md")
+            generate_page(filepath, template_path, destpath)
+        else:
+            print(f"{f} is a folder, so we're making a directory for it and going another layer deeper.")
+            os.mkdir(destpath)
+            generate_page_recursive(filepath, template_path, destpath)
+    pass
+
 
 main()
