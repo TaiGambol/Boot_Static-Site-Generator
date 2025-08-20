@@ -53,8 +53,8 @@ def generate_page(from_path, template_path, dest_path, basepath):
     node_html = node.to_html()
     template = template.replace("{{ Title }}", title)
     template = template.replace("{{ Content }}", node_html)
-    template = template.replace('href="/', 'href="{basepath}')
-    template = template.replace('src="/', 'src="{basepath}')
+    template = template.replace('href="/', f'href="{basepath}')
+    template = template.replace('src="/', f'src="{basepath}')
 
     with open(dest_path, "w") as file:
         file.write(template)
